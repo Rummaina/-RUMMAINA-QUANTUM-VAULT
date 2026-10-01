@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rummaina Cipher Vault Pro v8.0 (50GB Engine)</title>
+    <title>Rummaina Cipher Vault Pro v8.6 (Pro Typography)</title>
+    <!-- Importing Pro Sans-Serif Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Rummaina%20Cipher%20Vault%22,%22short_name%22:%22CipherVault%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23010409%22,%22theme_color%22:%22%2300d4ff%22}">
     <style>
         :root {
@@ -20,7 +22,8 @@
             --terminal-green: #00ffaa;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Consolas', 'Fira Code', monospace; }
+        /* Applied Professional Font Style (Inter + Fallback to Consolas/Monospace) */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Consolas', sans-serif; }
 
         body {
             background-color: var(--bg-dark);
@@ -46,7 +49,7 @@
             flex-wrap: wrap; gap: 10px;
         }
 
-        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; }
+        .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; }
         .logo span { color: var(--neon-blue); }
         .logo.pro-mode span { color: var(--pro-gold); text-shadow: 0 0 20px var(--pro-gold); }
 
@@ -55,7 +58,7 @@
         .install-btn {
             background: linear-gradient(135deg, #00ffaa, #0055ff);
             border: none; padding: 8px 16px; border-radius: 20px;
-            color: #000; font-weight: bold; font-size: 0.75rem;
+            color: #000; font-weight: 600; font-size: 0.75rem;
             cursor: pointer; box-shadow: 0 0 15px rgba(0, 255, 170, 0.4);
             transition: all 0.3s ease;
         }
@@ -68,7 +71,7 @@
 
         .toggle-btn {
             padding: 6px 16px; font-size: 0.75rem; border: none; border-radius: 15px;
-            cursor: pointer; background: transparent; color: var(--text-muted); font-weight: bold;
+            cursor: pointer; background: transparent; color: var(--text-muted); font-weight: 600;
             transition: all 0.3s;
         }
 
@@ -76,6 +79,25 @@
         .toggle-btn.active-pro { background: var(--pro-gold); color: #000; box-shadow: 0 0 20px var(--pro-gold); }
 
         main { position: relative; z-index: 10; flex: 1; padding: 25px; max-width: 1400px; margin: 0 auto; width: 100%; }
+
+        .telemetry-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px; margin-bottom: 25px;
+        }
+        .telemetry-card {
+            background: var(--bg-card); border: 1px solid var(--border-normal);
+            border-radius: 8px; padding: 15px; backdrop-filter: blur(10px);
+            display: flex; flex-direction: column; gap: 5px;
+        }
+        .telemetry-card span { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 500; }
+        .telemetry-card h4 { font-size: 1.1rem; color: var(--terminal-green); font-weight: 600; }
+
+        .tech-badges {
+            margin-bottom: 25px; font-size: 0.8rem; color: var(--text-muted);
+            background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 8px;
+            border: 1px solid var(--border-normal); display: inline-block; font-weight: 500;
+        }
+        .tech-badges span { color: var(--neon-blue); font-weight: 600; }
 
         .auth-wrapper { max-width: 480px; margin: 40px auto; }
         .auth-card {
@@ -92,22 +114,21 @@
             background: var(--bg-card); border: 1px solid var(--border-normal);
             border-radius: 12px; padding: 22px; backdrop-filter: blur(20px);
         }
-        .panel.pro-panel { border-color: var(--border-pro); box-shadow: 0 0 30px rgba(255, 215, 0, 0.1); }
 
         .input-group { margin-bottom: 18px; text-align: left; }
-        label { display: block; font-size: 0.72rem; color: var(--neon-blue); margin-bottom: 6px; text-transform: uppercase; }
+        label { display: block; font-size: 0.72rem; color: var(--neon-blue); margin-bottom: 6px; text-transform: uppercase; font-weight: 600; }
         .pro-label { color: var(--pro-gold) !important; }
 
         input, select, textarea {
             width: 100%; padding: 12px 14px; background: rgba(1, 4, 9, 0.9);
             border: 1px solid var(--border-normal); border-radius: 6px;
-            color: var(--text-main); font-size: 0.9rem; outline: none;
+            color: var(--text-main); font-size: 0.9rem; outline: none; font-family: 'Inter', sans-serif;
         }
 
         .btn {
             width: 100%; padding: 12px; background: linear-gradient(135deg, #0055ff, var(--neon-blue));
-            border: none; border-radius: 6px; color: #fff; font-weight: bold;
-            cursor: pointer; letter-spacing: 1px; text-transform: uppercase;
+            border: none; border-radius: 6px; color: #fff; font-weight: 600;
+            cursor: pointer; letter-spacing: 0.5px; text-transform: uppercase;
         }
         .btn-pro { background: linear-gradient(135deg, var(--pro-glow), var(--pro-gold)) !important; color: #000 !important; }
 
@@ -143,9 +164,28 @@
     </header>
 
     <main>
+        <div class="telemetry-grid">
+            <div class="telemetry-card">
+                <span>System Status</span>
+                <h4 id="sysStatus" style="color: var(--terminal-green);">ONLINE [SECURE]</h4>
+            </div>
+            <div class="telemetry-card">
+                <span>CPU Load / Latency</span>
+                <h4 id="cpuLoad">1.2% / 14ms</h4>
+            </div>
+            <div class="telemetry-card">
+                <span>Active Nodes</span>
+                <h4 id="activeNodes" style="color: var(--neon-blue);">2,048 Quantum Cores</h4>
+            </div>
+        </div>
+
+        <div class="tech-badges">
+            Core Tech Stack: <span>HTML5</span> · <span>CSS3</span> · <span>JavaScript ES6+</span> · <span>PWA Offline Engine</span> · <span>GitHub Pages</span>
+        </div>
+
         <div class="auth-wrapper" id="authSection">
             <div class="auth-card" id="authCard">
-                <h2 id="authTitle" style="color: var(--neon-blue); margin-bottom: 10px;">AUTHENTICATE SYSTEM</h2>
+                <h2 id="authTitle" style="color: var(--neon-blue); margin-bottom: 10px; font-weight: 700;">AUTHENTICATE SYSTEM</h2>
                 <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 20px;">Enter PIN to Access Encrypted Storage</p>
                 <div class="input-group">
                     <label id="pinLabel">Master PIN</label>
@@ -158,7 +198,7 @@
         <div class="vault-layout hidden" id="vaultDashboard">
 
             <div class="panel" id="leftPanel">
-                <h3 id="panelTitle" style="color: var(--neon-blue); margin-bottom: 15px;">⚡ ADD NEW CIPHER NOTE</h3>
+                <h3 id="panelTitle" style="color: var(--neon-blue); margin-bottom: 15px; font-weight: 700;">⚡ ADD NEW CIPHER NOTE</h3>
 
                 <div class="input-group">
                     <label class="dyn-label">Note / File Title</label>
@@ -196,7 +236,7 @@
                 <button class="btn" id="saveBtn" onclick="savePayload()">Encrypt & Store</button>
 
                 <div style="margin-top:20px; background:rgba(0,0,0,0.5); padding:10px; border-radius:6px;">
-                    <div style="display:flex; justify-content:space-between; font-size:0.75rem;">
+                    <div style="display:flex; justify-content:space-between; font-size:0.75rem; font-weight: 500;">
                         <span>STORAGE CAPACITY</span>
                         <span id="storageStats">0 / 500 MB</span>
                     </div>
@@ -208,7 +248,7 @@
 
             <div class="panel" id="rightPanel">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h3 id="vaultHeaderTitle" style="color: var(--neon-blue);">🛡️ STORED VAULT ITEMS</h3>
+                    <h3 id="vaultHeaderTitle" style="color: var(--neon-blue); font-weight: 700;">🛡️ STORED VAULT ITEMS</h3>
                     <button class="btn" style="width: auto; padding: 6px 14px; font-size: 0.75rem;" onclick="lockVault()">LOCK TERMINAL</button>
                 </div>
 
@@ -221,7 +261,13 @@
     <script>
         let currentTier = "normal";
         let deferredPrompt = null;
-        const STORAGE_KEY = "rummaina_vault_v8";
+        const STORAGE_KEY = "rummaina_vault_v8.6";
+
+        setInterval(() => {
+            const randCpu = (Math.random() * 2 + 0.8).toFixed(1);
+            const randPing = Math.floor(Math.random() * 8 + 10);
+            document.getElementById("cpuLoad").innerText = `${randCpu}% / ${randPing}ms`;
+        }, 3000);
 
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -387,7 +433,7 @@
 
                 div.innerHTML = `
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <h4 style="color:#fff;">${item.title} [${item.type.toUpperCase()}]</h4>
+                        <h4 style="color:#fff; font-weight: 600;">${item.title} [${item.type.toUpperCase()}]</h4>
                         <button class="btn" style="width:auto; background:var(--danger); padding:4px 10px; font-size:0.7rem;" onclick="deleteRecord(${item.id})">Delete</button>
                     </div>
                     ${contentHTML}
